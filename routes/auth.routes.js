@@ -8,4 +8,3 @@ router.post('/register', upload.single('avatar'), auth.register);
 router.post('/login', auth.login);
 
 module.exports = router;
-

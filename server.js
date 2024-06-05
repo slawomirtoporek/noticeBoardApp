@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 const app = express();
 
@@ -9,6 +11,12 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
+app.use(session({ 
+  secret: 'xyz567', 
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: 'mongodb+srv://toporekslawomir:z698iPAwqggXI4mO@clusterO.rimjfuu.mongodb.net/NoticeBoardDB?retryWrites=true&w=majority&appName=Cluster0' })
+}));
 
 app.use('/auth', require('./routes/auth.routes'));
 
