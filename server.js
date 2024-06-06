@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 app.use(session({ 
-  secret: 'xyz567', 
+  secret: `${process.env.SESSION_PASS}`, 
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: 'mongodb+srv://toporekslawomir:z698iPAwqggXI4mO@clusterO.rimjfuu.mongodb.net/NoticeBoardDB?retryWrites=true&w=majority&appName=Cluster0' })

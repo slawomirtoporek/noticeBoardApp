@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/User.model');
 const getImageFileType = require('../utils/getImageFileType');
 const bcrypt = require('bcryptjs');
 
@@ -48,9 +48,26 @@ exports.login = async (req, res) => {
         };
       };
     } else {
-      res.status(400).send({ message: 'Bad request' });
+      res.status(400).json({ message: 'Bad request' });
     };
   } catch(err) {
     res.status(500).json({ message: err });
+  }
+};
+
+exports.getUser = async (req, res) => {
+  try {
+    if (req.session.user.login && req.session.user.id) {
+      const user = await User.findById(req.session.user.id);
+      if (user) {
+        return res.json(user);
+      } else {
+        return res.status(400).json({ message: "User not found" });
+      };
+    } else {
+      return res.status(401).json({ message: "Failed to authenticate" });
+    };
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
   }
 };
