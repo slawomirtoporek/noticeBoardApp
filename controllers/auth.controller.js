@@ -1,4 +1,4 @@
-const User = require('../models/User.model');
+const User = require('../models/Account.model');
 const getImageFileType = require('../utils/getImageFileType');
 const bcrypt = require('bcryptjs');
 
@@ -67,6 +67,29 @@ exports.getUser = async (req, res) => {
     } else {
       return res.status(401).json({ message: "Failed to authenticate" });
     };
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+exports.logout = async (req, res) => {
+  try {
+    if (!req.session) {
+      return res.status(401).json({ message: "You are not logged in" });
+    };
+
+    const user = await User.findById(req.session.user.id);
+    if (!user) {
+      return res.status(401).json({ message: "Failed to authenticate" });
+    };
+
+    req.session.destroy((err) => {
+      if (err) {
+        res.status(500).json({ message: "Error during logout" });
+      } else {
+        res.status(200).json({ message: "Logout successful" });
+      };
+    });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }

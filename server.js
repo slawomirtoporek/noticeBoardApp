@@ -15,7 +15,7 @@ app.use(session({
   secret: `${process.env.SESSION_PASS}`, 
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: 'mongodb+srv://toporekslawomir:z698iPAwqggXI4mO@clusterO.rimjfuu.mongodb.net/NoticeBoardDB?retryWrites=true&w=majority&appName=Cluster0' })
+  store: MongoStore.create({ mongoUrl: 'mongodb+srv://toporekslawomir:z698iPAwqggXI4mO@clusterO.rimjfuu.mongodb.net/NoticeBoardDB?retryWrites=true&w=majority&appName=Cluster0', dbName: 'NoticeBoardDB' })
 }));
 
 app.use('/auth', require('./routes/auth.routes'));
