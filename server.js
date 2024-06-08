@@ -19,6 +19,8 @@ app.use(session({
 }));
 
 app.use('/auth', require('./routes/auth.routes'));
+app.use('/api', require('./routes/ads.routes'));
+
 
 app.use((req, res) => {
   res.status(404).json('Not found...');
