@@ -2,7 +2,7 @@ const Ad = require('../models/Ad.model');
 
 exports.getAll = async (req, res) => {
   try {
-    const ads = await Ad.find();
+    const ads = await Ad.find().populate('user');
 
     if (ads.length === 0) {
       res.status(200).json({ message: 'No ads found'});

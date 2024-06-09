@@ -4,3 +4,5 @@ const adController = require('../controllers/ad.controller');
 const router = express.Router();
 
 router.get('/ads', adController.getAll);
+
+module.exports = router;
