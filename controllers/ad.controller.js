@@ -14,3 +14,17 @@ exports.getAll = async (req, res) => {
     res.status(500).json({ message: err });
   }
 };
+
+exports.getById = async (req, res) => {
+  try {
+    const ad = await Ad.findById(req.params.id).populate('user');
+    if (!ad) {
+      res.status(404).json({ message: 'Ad not found' });
+    } else {
+      res.json(ad);
+    };
+  }
+  catch(err) {
+    res.status(500).json({ message: err });
+  }
+};
