@@ -8,5 +8,6 @@ const upload = require('../utils/imageUpload');
 router.get('/ads', ads.getAll);
 router.get('/ads/:id', ads.getById);
 router.post('/ads', upload.single('image'), authMiddleware, ads.newAd);
+router.delete('/ads/:id', authMiddleware, ads.deleteAd);
 
 module.exports = router;

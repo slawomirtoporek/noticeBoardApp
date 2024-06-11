@@ -10,8 +10,7 @@ exports.getAll = async (req, res) => {
     } else {
       res.json(ads);
     };
-  }
-  catch(err) {
+  } catch(err) {
     res.status(500).json({ message: err });
   }
 };
@@ -24,8 +23,7 @@ exports.getById = async (req, res) => {
     } else {
       res.json(ad);
     };
-  }
-  catch(err) {
+  } catch(err) {
     res.status(500).json({ message: err });
   }
 };
@@ -51,8 +49,29 @@ exports.newAd = async (req, res) => {
     } else {
       res.status(400).json({ message: 'All fields are required' });
     };
+  } catch(err) {
+    res.status(500).json({ message: err });
   }
-  catch(err) {
+};
+
+exports.deleteAd = async (req, res) => {
+  try {
+    const adId = req.params.id;
+    const userId = req.session.user.id;
+
+    const ad = await Ad.findById(adId);
+    
+    if(ad) {
+      if(ad.user._id.toString() === userId) {
+        await Ad.findByIdAndDelete(adId);
+        res.json({ message: 'Advertisement has been deleted' });
+      } else {
+        res.json({ message: 'Only the owner of this ad can remove it' });
+      };
+    } else {
+      res.status(404).json({ message: 'Not found...' });
+    };
+  } catch(err) {
     res.status(500).json({ message: err });
   }
 };
