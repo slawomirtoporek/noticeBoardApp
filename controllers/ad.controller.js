@@ -1,4 +1,6 @@
 const Ad = require('../models/Ad.model');
+const fs = require('fs');
+const path = require('path');
 const getImageFileType = require('../utils/getImageFileType');
 
 exports.getAll = async (req, res) => {
@@ -67,6 +69,64 @@ exports.deleteAd = async (req, res) => {
         res.json({ message: 'Advertisement has been deleted' });
       } else {
         res.json({ message: 'Only the owner of this ad can remove it' });
+      };
+    } else {
+      res.status(404).json({ message: 'Not found...' });
+    };
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
+};
+
+exports.updateAd = async (req, res) => {
+  const { title, content, price, location } = req.body;
+  const user = req.session.user.id;
+  const adId = req.params.id;
+
+  const parsedPrice = parseFloat(price);
+
+  let image;
+  let fileType = 'unknown';
+
+  if (req.file) {
+    image = req.file.filename;
+    fileType = await getImageFileType(req.file);
+  };
+
+  const ad = await Ad.findById(adId);
+    
+  try {
+    if(ad) {
+      if(ad.user._id.toString() === user) {
+        if (title && typeof title === 'string' &&
+          content && typeof content === 'string' &&
+          !isNaN(parsedPrice) &&
+          location && typeof location === 'string') {
+            
+          const updateFields = { title, content, publicationDate: new Date(), price: parsedPrice, location, image, user };
+            
+          if (image && ['image/png', 'image/jpeg', 'image/gif'].includes(fileType)) {
+            const oldImage = ad.image;
+            updateFields.image = image;
+
+            if (oldImage && oldImage !== image) {
+              const oldImagePath = path.join(__dirname, '..', 'public', 'uploads', oldImage);
+              if (fs.existsSync(oldImagePath)) {
+                fs.unlinkSync(oldImagePath);
+              };
+            };
+          } else if (!image) {
+            updateFields.image = ad.image;
+          };
+
+          await Ad.updateOne({ _id: adId }, { $set: updateFields });
+            
+          res.json({ message: 'OK' });
+        } else {
+          res.status(400).json({ message: 'All fields are required' });
+        };
+      } else {
+        res.status(403).json({ message: 'Only the owner of this ad can update it' });
       };
     } else {
       res.status(404).json({ message: 'Not found...' });
