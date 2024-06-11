@@ -135,3 +135,17 @@ exports.updateAd = async (req, res) => {
     res.status(500).json({ message: err });
   }
 };
+
+exports.getBySearchPhrase = async (req, res) => {
+  try {
+      const searchPhrase = req.params.searchPhrase;
+      const ads = await Ad.find({ title: { $regex: searchPhrase, $options: 'i' }}).populate('user');
+      if(ads) {
+        res.json(ads);
+      } else {
+        res.json({ message: 'No ads matching the given phrase were found...' })
+      }
+  } catch (err) {
+      res.status(500).json({ message: err });
+  }
+};
