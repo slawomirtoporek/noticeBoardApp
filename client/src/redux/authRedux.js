@@ -1,3 +1,6 @@
+/* SELECTORS */
+export const getUser = ({ user }) => user ? user.data : null;
+
 /* ACTIONS */
 
 // action name creator
