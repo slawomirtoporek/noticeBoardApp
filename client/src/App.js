@@ -11,21 +11,24 @@ import NewAd from './components/pages/NewAd/NewAd';
 import DeleteAd from './components/pages/DeleteAd/DeleteAd';
 import Search from './components/pages/Search/Search';
 import NotFound from './components/pages/NotFound/NotFound';
+import MainLayout from './components/layout/MainLayout/MainLayout';
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/logout" element={<Logout />} />
-      <Route path="/ads/:id" element={<AddAd />} />
-      <Route path="/edit/:id" element={<EditAd />} />      
-      <Route path="/add" element={<NewAd />} />
-      <Route path="/delete/:id" element={<DeleteAd />} />
-      <Route path="/search/:searchPhrase" element={<Search />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <MainLayout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/ads/:id" element={<AddAd />} />
+        <Route path="/edit/:id" element={<EditAd />} />      
+        <Route path="/add" element={<NewAd />} />
+        <Route path="/delete/:id" element={<DeleteAd />} />
+        <Route path="/search/:searchPhrase" element={<Search />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </MainLayout>
   );
 };
 
