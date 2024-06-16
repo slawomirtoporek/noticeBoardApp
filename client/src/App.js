@@ -21,10 +21,10 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/ads/:id" element={<AddAd />} />
-        <Route path="/edit/:id" element={<EditAd />} />      
-        <Route path="/add" element={<NewAd />} />
-        <Route path="/delete/:id" element={<DeleteAd />} />
+        <Route path="/ad/:id" element={<AddAd />} />
+        <Route path="/ad/edit/:id" element={<EditAd />} />      
+        <Route path="/ad/add" element={<NewAd />} />
+        <Route path="/ad/remove/:id" element={<DeleteAd />} />
         <Route path="/search/:searchPhrase" element={<Search />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
