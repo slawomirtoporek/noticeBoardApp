@@ -1,7 +1,7 @@
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getUser } from '../../../redux/authRedux';
+import { getUser } from '../../../redux/usersRedux';
 
 const MainMenu = () => {
 

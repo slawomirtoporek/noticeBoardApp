@@ -4,18 +4,13 @@
 const reducerName = 'ads';
 const createActionName = name => `app/${reducerName}/${name}`;
 
-/* INITIAL STATE */
-
-const initialState = {
-  data: [],
-  requests: [],
-};
-
 /* REDUCER */
 
-export default function reducer(statePart = initialState, action = {}) {
+const adsReducer = (statePart = null, action) => {
   switch (action.type) {
     default:
       return statePart;
   }
-}
+};
+
+export default adsReducer;

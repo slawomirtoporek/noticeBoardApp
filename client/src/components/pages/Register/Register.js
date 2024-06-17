@@ -8,10 +8,6 @@ const Register = () => {
       <Row>
         <Col className="col-12 col-sm-3 mx-auto">
           <h1 className="my-3">Sign up</h1>
-        </Col>
-      </Row>
-      <Row>
-        <Col className="col-12 col-sm-3 mx-auto">
           <RegisterForm />
         </Col>
       </Row>
