@@ -13,7 +13,18 @@ import Search from './components/pages/Search/Search';
 import NotFound from './components/pages/NotFound/NotFound';
 import MainLayout from './components/layout/MainLayout/MainLayout';
 
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { checkLoggedUser } from "./redux/usersRedux";
+
 const App = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkLoggedUser());
+  }, [dispatch]);
+  
   return (
     <MainLayout>
       <Routes>

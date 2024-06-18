@@ -66,7 +66,6 @@ const LoginForm = () => {
         </Spinner>
       )}
 
-
       <Form.Group className="mb-3" controlId="formLogin">
         <Form.Label>Login</Form.Label>
         <Form.Control
