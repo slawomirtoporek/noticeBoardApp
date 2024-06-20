@@ -12,6 +12,7 @@ const Logout = () => {
   useEffect(() => {
     const options = {
     method: 'DELETE',
+    credentials: 'include'
   };
 
   fetch(`${API_URL}/auth/logout`, options)
@@ -19,6 +20,10 @@ const Logout = () => {
     dispatch(logOut());
     navigate("/");
   });
+
+  return () => {
+      dispatch(logOut());
+    };
   }, [dispatch, navigate]);
 
   return(

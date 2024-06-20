@@ -17,9 +17,8 @@ export const logIn = payload => ({
   payload
 });
 
-export const logOut = payload => ({
+export const logOut = () => ({
   type: LOG_OUT,
-  payload
 });
 
 /* THUNKS */
@@ -35,6 +34,8 @@ export const checkLoggedUser = () => {
       if (response.ok) {
         const data = await response.json();
         dispatch(logIn({ id: data._id, login: data.login }));
+      }  else {
+        dispatch(logOut());
       };
     } catch (e) {
       console.log("error ", e);
@@ -44,7 +45,7 @@ export const checkLoggedUser = () => {
 
 /* REDUCER */
 
-const usersReducer = (statePart = null, action) => {
+const usersReducer = (statePart = [], action) => {
   switch (action.type) {
     case LOG_IN:
       return { ...statePart, data: action.payload };

@@ -87,7 +87,7 @@ const AdForm = ({ action, ...data }) => {
         <Form.Control
           value={inputFields.content}
           name="content"
-          type="text"
+          as="textarea" rows={5}
           placeholder="Enter content"
           onChange={handleInput}
         />

@@ -31,6 +31,8 @@ const LoginForm = () => {
           setStatus('success');
           dispatch(logIn({ login }));
           navigate("/");
+          setLogin('');
+          setPassword('');
         } else if (res.status === 400) {
           setStatus('clientError');
         } else {
@@ -76,6 +78,7 @@ const LoginForm = () => {
           value={login}
           onChange={e => setLogin(e.target.value)}
           placeholder="Enter login"
+          disabled={status === 'loading'}
         />
       </Form.Group>
 
@@ -86,11 +89,12 @@ const LoginForm = () => {
           value={password}
           onChange={e => setPassword(e.target.value)}
           placeholder="Password"
+          disabled={status === 'loading'}
         />
       </Form.Group>
 
       <Button variant="primary" type="submit">
-        Sing in
+        Sign in
       </Button>
     </Form>
   );

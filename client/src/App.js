@@ -5,7 +5,6 @@ import Home from './components/pages/Home/Home';
 import Register from './components/pages/Register/Register';
 import Login from './components/pages/Login/Login';
 import Logout from './components/pages/Logout/Logout';
-import AddAd from './components/pages/AddAd/AddAd';
 import EditAd from './components/pages/EditAd/EditAd';
 import NewAd from './components/pages/NewAd/NewAd';
 import DeleteAd from './components/pages/DeleteAd/DeleteAd';
@@ -32,7 +31,6 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/ad/:id" element={<AddAd />} />
         <Route path="/ad/edit/:id" element={<EditAd />} />      
         <Route path="/ad/add" element={<NewAd />} />
         <Route path="/ad/remove/:id" element={<DeleteAd />} />
