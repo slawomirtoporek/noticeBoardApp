@@ -2,6 +2,7 @@ import { API_URL } from "../config";
 
 /* ACTIONS */
 export const getUser = (state) => state.user ? state.user.data : null;
+export const getAds = ({ ads }) => ads.data;
 export const getAdById = ({ ads }, id) => 
   ads && Array.isArray(ads.data)
   ? ads.data.find((ad) => ad._id === id)
@@ -34,7 +35,14 @@ export const fetchAds = () => async (dispatch) => {
 
     if (response.ok) {
       const res = await response.json();
-      dispatch(loadAds(res.data));
+
+      if (Array.isArray(res)) {
+        dispatch(loadAds(res));
+      } else if (res.data && Array.isArray(res.data)) {
+        dispatch(loadAds(res.data));
+      } else {
+        dispatch(setError('Unexpected response structure'));
+      }
     } else {
       const errorData = await response.json();
       dispatch(setError(errorData.message || 'Failed to load ads'));
@@ -88,17 +96,12 @@ export const editAdRequest = (ad, id) => async (dispatch) => {
 
 /* REDUCER */
 
-const initialState = {
-  data: [],
-  error: null
-};
-
-const adsReducer = (statePart = initialState, action) => {
+const adsReducer = (statePart = { data: [], error: null }, action) => {
   switch (action.type) {
     case ADD_AD:
       return { ...statePart, data: [...statePart.data, action.payload], error: null };
     case EDIT_AD:
-      return { ...statePart, data: statePart.data.map(ad => ad._id === action.payload._id ? action.payload : ad)};
+      return { ...statePart, data: statePart.data.map(ad => ad._id === action.payload._id ? action.payload : ad), error: null };
     case LOAD_ADS:
       return { ...statePart, data: action.payload, error: null };
     case ERROR:

@@ -2,6 +2,7 @@ import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../../redux/usersRedux';
+import AdsBoard from '../../features/AdsBoard/AdsBoard';
 
 
 const Home = () => {
@@ -20,6 +21,7 @@ const Home = () => {
           Add ad
         </Button>
       )}
+      <AdsBoard />
     </>
   );
 };

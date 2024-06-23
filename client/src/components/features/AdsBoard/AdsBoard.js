@@ -5,7 +5,7 @@ import AdsGrid from "../AdsGrid/AdsGrid";
 
 const AdsBoard = () => {
 
-  const [listAds, setListAds] = useState(null);
+  const [listAds, setListAds] = useState([]);
   const dispatch = useDispatch();
   const ads = useSelector(getAds);
   
