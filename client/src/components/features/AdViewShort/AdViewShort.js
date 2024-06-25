@@ -9,7 +9,7 @@ const AdViewShort = ({ id, title, image, location }) => {
   const urlAd = `/api/ad/${id}`;
 
   return (
-    <Card className="my-3">
+    <Card className="mb-4">
       <Card.Img variant="top" src={srcImage} className={styles.imageAd} />
       <Card.Body>
         <Card.Title>{ title }</Card.Title>
