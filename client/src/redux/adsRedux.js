@@ -93,6 +93,25 @@ export const editAdRequest = (ad, id) => async (dispatch) => {
   }
 };
 
+export const getAdsBySearch = (searchPhrase) => async (dispatch) => {
+  const options = {
+    method: "GET",
+  };
+
+  try {
+    const response = await fetch(`${API_URL}/api/ads/search/${encodeURIComponent(searchPhrase)}`, options);
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(loadAds(data));
+    } else {
+      const errorData = await response.json();
+      dispatch(setError(errorData.message || 'Failed to fetch ads'));
+    }
+  } catch (e) {
+    dispatch(setError(e.message));
+  }
+};
 
 /* REDUCER */
 
