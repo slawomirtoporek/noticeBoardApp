@@ -21,14 +21,9 @@ const Logout = () => {
     navigate("/");
   });
 
-  return () => {
-      dispatch(logOut());
-    };
   }, [dispatch, navigate]);
 
-  return(
-    <></>
-  );
+  return null;
 };
 
 export default Logout;

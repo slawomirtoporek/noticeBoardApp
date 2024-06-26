@@ -52,11 +52,33 @@ export const fetchAds = () => async (dispatch) => {
   }
 };
 
+export const getAdByIdDetails = (id) => async (dispatch) => {
+
+  const options = {
+    method: 'GET'
+  };
+
+  try {
+    const response = await fetch(`${API_URL}/api/ads/${id}`, options);
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(loadAds(data));
+    } else {
+      const errorData = await response.json();
+      dispatch(setError(errorData.message || 'Failed to load ads'));
+    }
+  } catch (e) {
+    dispatch(setError(e.message));
+  }
+};
+
 export const addAdRequest = (ad) => async (dispatch) => {
 
   const options = {
     method: 'POST',
-    body: ad
+    body: ad,
+    credentials: 'include'
   };
 
   try {
@@ -77,12 +99,15 @@ export const editAdRequest = (ad, id) => async (dispatch) => {
 
   const options = {
     method: 'PUT',
-    body: ad
+    body: ad,
+    credentials: 'include'
   };
 
   try {
     const response = await fetch(`${API_URL}/api/ads/${id}`, options);
     if (response.ok) {
+      const data = await response.json();
+      dispatch(editAd(data));
       dispatch(fetchAds());
     } else {
       const errorData = await response.json();

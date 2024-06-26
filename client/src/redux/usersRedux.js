@@ -11,6 +11,7 @@ const createActionName = name => `app/${reducerName}/${name}`;
 
 const LOG_IN = createActionName('LOG_IN');
 const LOG_OUT = createActionName('LOG_OUT');
+const SET_ERROR = createActionName("SET_ERROR");
 
 export const logIn = payload => ({
   type: LOG_IN,
@@ -20,6 +21,8 @@ export const logIn = payload => ({
 export const logOut = () => ({
   type: LOG_OUT,
 });
+
+export const setError = (payload) => ({ type: SET_ERROR, payload });
 
 /* THUNKS */
 
@@ -49,8 +52,10 @@ const usersReducer = (statePart = [], action) => {
   switch (action.type) {
     case LOG_IN:
       return { ...statePart, data: action.payload };
-    case LOG_OUT:
-      return { ...statePart, data: null };
+      case LOG_OUT:
+        return { ...statePart, data: null, error: null };
+      case SET_ERROR:
+        return { ...statePart, error: action.payload };
     default:
       return statePart;
   }

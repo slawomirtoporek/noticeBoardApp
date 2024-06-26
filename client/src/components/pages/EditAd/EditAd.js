@@ -13,6 +13,7 @@ const EditAd = () => {
   const navigate = useNavigate();
   const user = useSelector(getUser);
   const dataAd = useSelector((state) => getAdById(state, id));
+  console.log(dataAd);
 
   const handleSubmit = (ad) => {
     const formData = new FormData();
@@ -32,23 +33,25 @@ const EditAd = () => {
 
   useEffect(() => {
 
-    // if (!user || dataAd.user._id !== user.id) {
-    //   navigate("/");
-    // };
+    if (!user || (dataAd && dataAd.user.login !== user.login)) {
+      navigate("/");
+    }
+
+    if (!dataAd || (dataAd && Object.keys(dataAd).length === 0)) {
+      dispatch(fetchAds());
+    };
 
     if (dataAd && Object.keys(dataAd).length === 0) {
       navigate("/");
     };
 
-    if (!dataAd || (dataAd && Object.keys(dataAd).length === 0)) {
-      dispatch(fetchAds());
-    };
   }, [dataAd, dispatch, navigate, user]);
+
   return(
     <Row>
-        <Col className="col-12 col-sm-3 mx-auto">
+        <Col className="col-12 col-sm-6 mx-auto">
           <h1 className="my-3">Edit Ad</h1>
-          <AdForm action={handleSubmit} {...dataAd} />
+          {dataAd && Object.keys(dataAd).length > 0 && <AdForm action={handleSubmit} {...dataAd} />}
         </Col>
     </Row>
   );
