@@ -34,7 +34,7 @@ const NewAdd = () => {
 
   return(
     <Row>
-        <Col className="col-12 col-sm-3 mx-auto">
+        <Col className="col-12 col-sm-6 mx-auto">
           <h1 className="my-3">Add Ad</h1>
           <AdForm action={handleSubmit} />
         </Col>

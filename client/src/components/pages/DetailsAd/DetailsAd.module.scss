@@ -1,0 +1,27 @@
+.listDetails {
+  font-size: 21px;
+  font-weight: 400;
+
+  .headerAd {
+    font-size: 27px;
+    margin-left: 15px;
+  }
+
+  .icon {
+    font-size: 23px;
+    margin-right: 10px;
+    color: #0D6EFD;
+  }
+
+  .userAvatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-left: 15px;
+  }
+
+  .userData {
+    border-style: none;
+    border-bottom: 1px #D2D2D2 solid;
+  }
+}

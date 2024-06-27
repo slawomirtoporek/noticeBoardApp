@@ -5,6 +5,7 @@ import Home from './components/pages/Home/Home';
 import Register from './components/pages/Register/Register';
 import Login from './components/pages/Login/Login';
 import Logout from './components/pages/Logout/Logout';
+import DetailsAd from './components/pages/DetailsAd/DetailsAd';
 import EditAd from './components/pages/EditAd/EditAd';
 import NewAd from './components/pages/NewAd/NewAd';
 import DeleteAd from './components/pages/DeleteAd/DeleteAd';
@@ -15,12 +16,14 @@ import MainLayout from './components/layout/MainLayout/MainLayout';
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { checkLoggedUser } from "./redux/usersRedux";
+import { fetchAds } from './redux/adsRedux';
 
 const App = () => {
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(fetchAds());
     dispatch(checkLoggedUser());
   }, [dispatch]);
   
@@ -31,6 +34,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/ad/:id" element={<DetailsAd />} />
         <Route path="/ad/edit/:id" element={<EditAd />} />      
         <Route path="/ad/add" element={<NewAd />} />
         <Route path="/ad/remove/:id" element={<DeleteAd />} />

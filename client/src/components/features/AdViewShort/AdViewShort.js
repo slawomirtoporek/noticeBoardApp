@@ -6,7 +6,7 @@ import styles from './AdViewShort.module.scss';
 const AdViewShort = ({ id, title, image, location }) => {
 
   const srcImage = `${IMG_URL}${image}`;
-  const urlAd = `/api/ad/${id}`;
+  const urlAd = `/ad/${id}`;
 
   return (
     <Card className="mb-4">

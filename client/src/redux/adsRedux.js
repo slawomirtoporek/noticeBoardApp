@@ -140,7 +140,7 @@ export const getAdsBySearch = (searchPhrase) => async (dispatch) => {
 
 /* REDUCER */
 
-const adsReducer = (statePart = { data: [], error: null }, action) => {
+const adsReducer = (statePart = [], action) => {
   switch (action.type) {
     case ADD_AD:
       return { ...statePart, data: [...statePart.data, action.payload], error: null };
