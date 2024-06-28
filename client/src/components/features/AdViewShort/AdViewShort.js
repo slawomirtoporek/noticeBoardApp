@@ -9,9 +9,11 @@ const AdViewShort = ({ id, title, image, location }) => {
   const urlAd = `/ad/${id}`;
 
   return (
-    <Card className="mb-4">
-      <Card.Img variant="top" src={srcImage} className={styles.imageAd} />
-      <Card.Body>
+    <Card className={`mb-4 ${styles.adBox}`}>
+      <div className={styles.imgBox}>
+        <Card.Img variant="top" src={srcImage} className={styles.adImage} />
+      </div>
+      <Card.Body className="w-100">
         <Card.Title>{ title }</Card.Title>
         <Card.Text>{ location }</Card.Text>
         <Button variant="primary" as={NavLink} to={urlAd} className="float-end" >Read more</Button>
