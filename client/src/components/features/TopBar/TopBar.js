@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../../../redux/usersRedux';
-import { Button } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 import SearchFormAd from "../SearchFormAd/SearchFormAd";
 import styles from "../TopBar/TopBar.module.scss";
 
@@ -14,14 +14,20 @@ const TopBar = () => {
   };
 
   return (
+    <Row>
     <div className="d-flex justify-content-between">
-      <SearchFormAd />
+      <Col lg={4} md={6} sm={6}>
+      < SearchFormAd />
+      </Col>
       {user && (
-        <Button onClick={handleClick} className={styles.btnAddAd}>
-          Add ad
-        </Button>
+        <Col lg={3} md={3} sm={3} className="d-flex justify-content-end">
+          <Button onClick={handleClick} className={styles.btnAddAd}>
+            Add ad
+          </Button>
+        </Col>
       )}
     </div>
+    </Row>
   );
 };
 
