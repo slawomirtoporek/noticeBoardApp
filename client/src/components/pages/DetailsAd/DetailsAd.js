@@ -10,6 +10,7 @@ import { NavLink } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
 import styles from "../DetailsAd/DetailsAd.module.scss";
 import { formatDate } from "../../../utils/formatDate";
+import RemoveAd from "../../features/RemoveAd/RemoveAd";
 
 const DetailsAd = () => {
 
@@ -17,25 +18,30 @@ const DetailsAd = () => {
   const dispatch = useDispatch();
   const ad = useSelector(getAds);
   const user = useSelector(getUser);
-  console.log(user.login);
 
   useEffect(() => {
     dispatch(getAdByIdDetails(id));
   }, [dispatch, id]);
 
+  if (!ad) {
+    return <NotFound />;
+  }
+
+  const isUserOwner = ad.user && user && ad.user.login === user.login;
+
   return (
     <>
-      { ad ? 
+      {ad ? 
           (
             <Row>
               <Col xs={12} md={12} lg={8} className="mx-auto">
                 <Card>
-                  {ad.user && ad.user.login === user.login &&
+                  {isUserOwner &&
                     (<Card.Header className="d-flex justify-content-between">
                       <Card.Text className="d-flex align-items-center m-0">{ad.title}</Card.Text>
                       <div>
                         <Button as={NavLink} to={`/ad/edit/${id}`} className="mx-3">Edit</Button>
-                        <Button as={NavLink} to={`/ad/remove/${id}`} variant="danger">Delete</Button>
+                        <RemoveAd />
                       </div>
                     </Card.Header>)
                   }
@@ -54,9 +60,7 @@ const DetailsAd = () => {
                         <ListGroup variant="flush" className={styles.listDetails}>
                           {ad.user && (
                             <div className="d-flex flex-row align-items-center my-4">
-                              <>
-                                <Card.Img variant="left" src={`${IMG_URL}${ad.user.avatar}`} className={styles.userAvatar} />
-                              </>
+                              <Card.Img variant="left" src={`${IMG_URL}${ad.user.avatar}`} className={styles.userAvatar} />
                               <div className="d-flex flex-column w-100">
                                 <ListGroup.Item className={styles.userData}><FontAwesomeIcon icon={faUser} className={styles.icon} />{ad.user.login}</ListGroup.Item>
                                 <ListGroup.Item className={styles.userData}><FontAwesomeIcon icon={faPhone} className={styles.icon} />{ad.user.phoneNumber}</ListGroup.Item>

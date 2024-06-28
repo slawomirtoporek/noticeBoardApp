@@ -73,6 +73,27 @@ export const getAdByIdDetails = (id) => async (dispatch) => {
   }
 };
 
+export const deleteAd = (id) => async (dispatch) => {
+
+  const options = {
+    method: 'DELETE'
+  };
+
+  try {
+    const response = await fetch(`${API_URL}/api/ads/${id}`, options);
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(loadAds(data));
+    } else {
+      const errorData = await response.json();
+      dispatch(setError(errorData.message || 'Failed to load ads'));
+    }
+  } catch (e) {
+    dispatch(setError(e.message));
+  }
+};
+
 export const addAdRequest = (ad) => async (dispatch) => {
 
   const options = {

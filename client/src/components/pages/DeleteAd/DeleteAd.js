@@ -1,6 +1,9 @@
+import RemoveAd from "../../features/RemoveAd/RemoveAd";
+
 const DeleteAd = () => {
-  return(
-    <></>
+
+  return (
+    <RemoveAd />
   );
 };
 
