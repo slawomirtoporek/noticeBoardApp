@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { IMG_URL } from "../../../config";
 import { Button, Card, ListGroup, Row, Col, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getAdByIdDetails, getAds, getUser, getAdById, fetchAds } from "../../../redux/adsRedux";
+import { getUser, getAdById, fetchAds } from "../../../redux/adsRedux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoins, faUser, faPhone, faCity, faCalendarDays } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from "react-router-dom";
@@ -32,7 +32,13 @@ const DetailsAd = () => {
     };
   }, [ad, navigate]);
 
-  if (!ad) return <NotFound />;
+  if (!ad) {
+    return (
+      <Spinner animation="border" role="status" className="d-block mx-auto">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
+  };
   
   const isUserOwner = ad && ad.user && user && user.login  ===  ad.user.login;
   

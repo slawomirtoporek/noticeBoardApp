@@ -11,15 +11,15 @@ const AdsBoard = () => {
   const ads = useSelector(getAds);
   
   useEffect(() => {
+    dispatch(fetchAds());
+  }, [dispatch]);
+  
+  useEffect(() => {
     if (ads && Array.isArray(ads)) {
       const sortedAds = [...ads].sort((x, y) => new Date(x.publicationDate) - new Date(y.publicationDate));
       setListAds(sortedAds);
     };
   }, [ads]);
-
-  useEffect(() => {
-    dispatch(fetchAds());
-  }, [dispatch]);
 
   if (!listAds) {
     return (

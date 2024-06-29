@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal, Spinner } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { deleteAd, getUser, getAdById } from "../../../redux/adsRedux";
+import { deleteAd, getUser, getAdById, fetchAds } from "../../../redux/adsRedux";
 
 const RemoveAd = () => {
 
@@ -19,15 +19,19 @@ const RemoveAd = () => {
 
 
   const handleDeleteAd = () => {
-    dispatch(deleteAd(id));
-    navigate("/");
+    dispatch(deleteAd(id)).then(() => {
+      dispatch(fetchAds());
+      navigate("/");
+    });
   };
 
   useEffect(() => {
     if(ad && ad.user && user && ad.user.login !== user.login) {
       navigate("/");
     };
-  }, [navigate, ad, user]);
+
+    dispatch(fetchAds());
+  }, [navigate, dispatch, ad, user]);
 
   
   if (!ad || !ad.user) {

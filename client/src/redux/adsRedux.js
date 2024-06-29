@@ -16,11 +16,13 @@ const createActionName = name => `app/${reducerName}/${name}`;
 export const LOAD_ADS = createActionName("LOAD_ADS");
 export const ADD_AD = createActionName("ADD_AD");
 export const EDIT_AD = createActionName("EDIT_AD");
+export const DELETE_AD = createActionName("DELETE_AD");
 export const ERROR = createActionName("ERROR");
 
 export const loadAds = (payload) => ({ type: LOAD_ADS, payload });
 export const addAd = (payload) => ({ type: ADD_AD, payload });
 export const editAd = (payload) => ({ type: EDIT_AD, payload });
+export const deleteAdAction = (id) => ({ type: DELETE_AD, payload: id });
 export const setError = (payload) => ({ type: ERROR, payload });
 
 /* THUNKS */
@@ -63,8 +65,7 @@ export const getAdByIdDetails = (id) => async (dispatch) => {
     const response = await fetch(`${API_URL}/api/ads/${id}`, options);
 
     if (response.ok) {
-      const data = await response.json();
-      dispatch(loadAds(data));
+      dispatch(deleteAdAction(id));
     } else {
       const errorData = await response.json();
       dispatch(setError(errorData.message || 'Failed to load ads'));
@@ -170,6 +171,8 @@ const adsReducer = (statePart = [], action) => {
       return { ...statePart, data: statePart.data.map(ad => ad._id === action.payload._id ? action.payload : ad), error: null };
     case LOAD_ADS:
       return { ...statePart, data: action.payload, error: null };
+    case DELETE_AD:
+      return { ...statePart, data: statePart.data.filter(ad => ad._id !== action.payload), error: null };
     case ERROR:
       return { ...statePart, error: action.payload };
     default:
