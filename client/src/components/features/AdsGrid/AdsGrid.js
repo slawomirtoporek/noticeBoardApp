@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Row, Col } from "react-bootstrap";
 import AdViewShort from '../AdViewShort/AdViewShort';
 
@@ -16,6 +17,10 @@ const AdsGrid = ({ ads = [] }) => {
       </Row>
     </>
   );
+};
+
+AdsGrid.propTypes = {
+  ads: PropTypes.array
 };
 
 export default AdsGrid;

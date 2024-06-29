@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 import { getAdsBySearch, getAds } from '../../../redux/adsRedux';
 import AdsGrid from "../../features/AdsGrid/AdsGrid";
+import { Spinner } from "react-bootstrap";
 
 const Search = () => {
   const [listAds, setListAds] = useState([]);
@@ -22,6 +23,14 @@ const Search = () => {
   useEffect(() => {
     dispatch(getAdsBySearch(searchPhrase));
   }, [dispatch, searchPhrase]);
+
+  if (!foundAds) {
+    return (
+      <Spinner animation="border" role="status" className="d-block mx-auto">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
+  };
 
   return(
     <>

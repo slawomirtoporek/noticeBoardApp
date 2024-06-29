@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { IMG_URL } from "../../../config";
-import { Button, Card, ListGroup, Row, Col } from "react-bootstrap";
+import { Button, Card, ListGroup, Row, Col, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getAdByIdDetails, getAds, getUser } from "../../../redux/adsRedux";
+import { getAdByIdDetails, getAds, getUser, getAdById, fetchAds } from "../../../redux/adsRedux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoins, faUser, faPhone, faCity, faCalendarDays } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from "react-router-dom";
@@ -14,21 +14,28 @@ import RemoveAd from "../../features/RemoveAd/RemoveAd";
 
 const DetailsAd = () => {
 
-  const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const ad = useSelector(getAds);
+  
+  const { id } = useParams();
   const user = useSelector(getUser);
+  const ad = useSelector((state) => getAdById(state, id));
 
   useEffect(() => {
-    dispatch(getAdByIdDetails(id));
+    dispatch(fetchAds());
   }, [dispatch, id]);
 
-  if (!ad) {
-    return <NotFound />;
-  }
+  
+  useEffect(() => {
+    if (ad === undefined) {
+      navigate("/");
+    };
+  }, [ad, navigate]);
 
-  const isUserOwner = ad.user && user && ad.user.login === user.login;
-
+  if (!ad) return <NotFound />;
+  
+  const isUserOwner = ad && ad.user && user && user.login  ===  ad.user.login;
+  
   return (
     <>
       {ad ? 
@@ -58,7 +65,7 @@ const DetailsAd = () => {
                           <ListGroup.Item><FontAwesomeIcon icon={faCalendarDays} className={styles.icon} />{formatDate(ad.publicationDate)}</ListGroup.Item>
                         </ListGroup>
                         <ListGroup variant="flush" className={styles.listDetails}>
-                          {ad.user && (
+                          {ad && ad.user && (
                             <div className="d-flex flex-row align-items-center my-4">
                               <Card.Img variant="left" src={`${IMG_URL}${ad.user.avatar}`} className={styles.userAvatar} />
                               <div className="d-flex flex-column w-100">

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Spinner } from 'react-bootstrap';
 import AdForm from '../../features/AdForm/AdForm';
 import { getUser } from '../../../redux/usersRedux';
 import { editAdRequest, fetchAds, getAdById } from '../../../redux/adsRedux';
@@ -46,6 +46,14 @@ const EditAd = () => {
     };
 
   }, [dataAd, dispatch, navigate, user]);
+
+  if (!dataAd) {
+    return (
+      <Spinner animation="border" role="status" className="d-block mx-auto">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
+  };
 
   return(
     <Row>

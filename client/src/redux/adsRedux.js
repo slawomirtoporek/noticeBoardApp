@@ -7,6 +7,7 @@ export const getAdById = ({ ads }, id) =>
   ads && Array.isArray(ads.data)
   ? ads.data.find((ad) => ad._id === id)
   : null;
+export const getAdsError = ({ ads }) => ads.error;
 
 // action name creator
 const reducerName = 'ads';

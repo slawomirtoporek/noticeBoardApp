@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { IMG_URL } from "../../../config";
 import { Card, Button } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
@@ -20,6 +21,13 @@ const AdViewShort = ({ id, title, image, location }) => {
       </Card.Body>
     </Card>
   );
+};
+
+AdViewShort.propTypes = {
+  id: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
 };
 
 export default AdViewShort;

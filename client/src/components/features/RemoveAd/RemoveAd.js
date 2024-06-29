@@ -1,14 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Spinner } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { deleteAd, getAds, getUser } from "../../../redux/adsRedux";
+import { deleteAd, getUser, getAdById } from "../../../redux/adsRedux";
 
 const RemoveAd = () => {
 
   const { id } = useParams();
   const dispatch = useDispatch();
-  const ad = useSelector(getAds);
+  const ad = useSelector((state) => getAdById(state, id));
   const user = useSelector(getUser);
   const navigate = useNavigate();
 
@@ -24,10 +24,19 @@ const RemoveAd = () => {
   };
 
   useEffect(() => {
-    if(ad.user.login !== user.login) {
+    if(ad && ad.user && user && ad.user.login !== user.login) {
       navigate("/");
     };
   }, [navigate, ad, user]);
+
+  
+  if (!ad || !ad.user) {
+    return (
+      <Spinner animation="border" role="status" className="d-block mx-auto">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
+  };
 
   return(
     <>
