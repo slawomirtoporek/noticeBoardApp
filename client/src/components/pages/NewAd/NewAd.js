@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 import AdForm from '../../features/AdForm/AdForm';
-import { getUser } from '../../../redux/usersRedux';
+import { getUser } from "../../../redux/usersRedux";
 import { addAdRequest } from '../../../redux/adsRedux';
 
 const NewAdd = () => {
@@ -28,7 +28,7 @@ const NewAdd = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/");
+      navigate('/login');
     }
   }, [user, navigate]);
 

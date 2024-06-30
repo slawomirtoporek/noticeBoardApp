@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Row, Col, Spinner } from 'react-bootstrap';
 import AdForm from '../../features/AdForm/AdForm';
-import { getUser } from '../../../redux/usersRedux';
+import { getUser } from "../../../redux/usersRedux";
 import { editAdRequest, fetchAds, getAdById } from '../../../redux/adsRedux';
 
 const EditAd = () => {

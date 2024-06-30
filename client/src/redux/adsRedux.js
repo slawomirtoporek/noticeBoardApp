@@ -1,7 +1,6 @@
 import { API_URL } from "../config";
 
 /* ACTIONS */
-export const getUser = (state) => state.user ? state.user.data : null;
 export const getAds = ({ ads }) => ads.data;
 export const getAdById = ({ ads }, id) => 
   ads && Array.isArray(ads.data)

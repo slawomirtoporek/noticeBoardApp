@@ -17,6 +17,7 @@ const Logout = () => {
 
   fetch(`${API_URL}/auth/logout`, options)
   .then(() => {
+    document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     dispatch(logOut());
     navigate("/");
   });

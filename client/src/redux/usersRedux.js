@@ -2,6 +2,7 @@ import { API_URL } from "../config";
 
 /* SELECTORS */
 export const getUser = ({ user }) => user ? user.data : null;
+export const getUserError = ({ user }) => user.error;
 
 /* ACTIONS */
 
@@ -36,12 +37,13 @@ export const checkLoggedUser = () => {
 
       if (response.ok) {
         const data = await response.json();
-        dispatch(logIn({ id: data._id, login: data.login }));
-      }  else {
+        dispatch(logIn({ login: data.login }));
+      } else {
         dispatch(logOut());
       };
     } catch (e) {
       console.log("error ", e);
+      dispatch(logOut());
     }
   };
 };
@@ -51,7 +53,7 @@ export const checkLoggedUser = () => {
 const usersReducer = (statePart = [], action) => {
   switch (action.type) {
     case LOG_IN:
-      return { ...statePart, data: action.payload };
+      return { ...statePart, data: action.payload, error: null };
       case LOG_OUT:
         return { ...statePart, data: null, error: null };
       case SET_ERROR:

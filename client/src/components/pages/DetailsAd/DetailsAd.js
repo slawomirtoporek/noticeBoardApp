@@ -3,7 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { IMG_URL } from "../../../config";
 import { Button, Card, ListGroup, Row, Col, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, getAdById, fetchAds } from "../../../redux/adsRedux";
+import { getAdById, fetchAds } from "../../../redux/adsRedux";
+import { getUser } from "../../../redux/usersRedux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoins, faUser, faPhone, faCity, faCalendarDays } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from "react-router-dom";

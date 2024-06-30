@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getUser } from '../../../redux/usersRedux';
+import { getUser } from "../../../redux/usersRedux";
 import { Button, Row, Col } from 'react-bootstrap';
 import SearchFormAd from "../SearchFormAd/SearchFormAd";
 import styles from "../TopBar/TopBar.module.scss";

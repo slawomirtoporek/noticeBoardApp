@@ -2,7 +2,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal, Spinner } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { deleteAd, getUser, getAdById, fetchAds } from "../../../redux/adsRedux";
+import { deleteAd, getAdById, fetchAds } from "../../../redux/adsRedux";
+import { getUser } from "../../../redux/usersRedux";
 
 const RemoveAd = () => {
 
