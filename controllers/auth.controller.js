@@ -73,24 +73,34 @@ exports.getUser = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
-  try {
-    if (!req.session) {
-      return res.status(401).json({ message: "You are not logged in" });
-    };
-
-    const user = await User.findById(req.session.user.id);
-    if (!user) {
-      return res.status(401).json({ message: "Failed to authenticate" });
-    };
-
-    req.session.destroy((err) => {
-      if (err) {
-        res.status(500).json({ message: "Error during logout" });
-      } else {
-        res.status(200).json({ message: "Logout successful" });
+  if (process.env.NODE_ENV !== "production") {
+    try {
+      await Session.deleteMany({});
+      return res.status(200).json({ message: "Logout successful" });
+    } catch (err) {
+      return res.status(500).json({ message: err.message });
+    }
+  } else {
+    try {
+      if (!req.session) {
+        return res.status(401).json({ message: "You are not logged in" });
       };
-    });
-  } catch (err) {
-    res.status(500).json({ message: "Server error" });
-  }
+
+      const user = await User.findById(req.session.user.id);
+      if (!user) {
+        return res.status(401).json({ message: "Failed to authenticate" });
+      };s
+
+      req.session.destroy((err) => {
+        if (err) {
+          return res.status(500).json({ message: "Error during logout" });
+        } else {
+          res.clearCookie('connect.sid');
+          return res.status(200).json({ message: "Logout successful" });
+        };
+      });
+    } catch (err) {
+      return res.status(500).json({ message: "Server error" });
+    }
+  };
 };
