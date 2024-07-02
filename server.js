@@ -12,17 +12,23 @@ app.use(express.static(path.join(__dirname, '/client/build')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+if (process.env.NODE_ENV !== "production") {
+  app.use(cors({ origin: ["http://localhost:3000", "http://localhost:8000"], credentials: true }));
+};
 
 app.use(session({ 
   secret: `${process.env.SESSION_PASS}`, 
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: 'mongodb+srv://toporekslawomir:z698iPAwqggXI4mO@clusterO.rimjfuu.mongodb.net/NoticeBoardDB?retryWrites=true&w=majority&appName=Cluster0', dbName: 'NoticeBoardDB' })
+  store: MongoStore.create({ mongoUrl: 'mongodb+srv://toporekslawomir:z698iPAwqggXI4mO@clusterO.rimjfuu.mongodb.net/NoticeBoardDB?retryWrites=true&w=majority&appName=Cluster0' })
 }));
 
 app.use('/auth', require('./routes/auth.routes'));
 app.use('/api', require('./routes/ads.routes'));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
 
 app.use((req, res) => {
   res.status(404).json('Not found...');
