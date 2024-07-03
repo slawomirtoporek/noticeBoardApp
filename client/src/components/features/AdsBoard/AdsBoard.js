@@ -6,7 +6,6 @@ import { Spinner } from "react-bootstrap";
 
 const AdsBoard = () => {
 
-  const [listAds, setListAds] = useState([]);
   const dispatch = useDispatch();
   const ads = useSelector(getAds);
   
@@ -14,14 +13,8 @@ const AdsBoard = () => {
     dispatch(fetchAds());
   }, [dispatch]);
   
-  useEffect(() => {
-    if (ads && Array.isArray(ads)) {
-      const sortedAds = [...ads].sort((x, y) => new Date(x.publicationDate) - new Date(y.publicationDate));
-      setListAds(sortedAds);
-    };
-  }, [ads]);
-
-  if (!listAds) {
+  
+  if (!ads) {
     return (
       <Spinner animation="border" role="status" className="d-block mx-auto">
         <span className="visually-hidden">Loading...</span>
@@ -29,8 +22,10 @@ const AdsBoard = () => {
     );
   };
   
+  const sortedAds = [...ads].sort((x, y) => new Date(x.publicationDate) - new Date(y.publicationDate));
+  
   return (
-    <AdsGrid ads={listAds} />
+    <AdsGrid ads={sortedAds} />
   );
 };
 
