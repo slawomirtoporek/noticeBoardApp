@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
 
 const connectToDB = () => {
-  const dbURL =
-    process.env.NODE_ENV === "production"
-      ? `mongodb+srv://toporekslawomir:${process.env.DB_PASS}@cluster0.rimjfuu.mongodb.net/NoticeBoardDB?retryWrites=true&w=majority&appName=Cluster0`
-      : "mongodb://0.0.0.0:27017/NoticeBoardDB";
+  const dbURL = `mongodb+srv://toporekslawomir:z698iPAwqggXI4mO@cluster0.rimjfuu.mongodb.net/NoticeBoardDB?retryWrites=true&w=majority&appName=Cluster0`;
 
   mongoose.connect(dbURL, {});
   const db = mongoose.connection;
